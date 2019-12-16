@@ -10,7 +10,14 @@ var Funciones = function() {
         },
         bienvenido: function() {
             let usuario = JSON.parse(localStorage.getItem("usuario"));
-            $(".texto-bienvenida").html("Bienvenido asesor <br/>" + usuario.nombre);
+            if (usuario.rol == 1) {
+                $(".texto-bienvenida").html("Bienvenido cajero <br/>" + usuario.nombre);
+            } else {
+                $(".texto-bienvenida").html("Bienvenido asesor <br/>" + usuario.nombre);
+            }
+        },
+        salir: function() {
+            window.location.href = "index.html";
         }
     }
 }();

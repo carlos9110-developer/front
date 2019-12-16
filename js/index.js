@@ -3,6 +3,7 @@ function inicio() {
         login(e);
     });
     localStorage.clear();
+    $("#form-login")[0].reset();
 }
 inicio();
 
@@ -26,6 +27,8 @@ function login(e) {
                     let usuario = JSON.parse(localStorage.getItem("usuario"));
                     if (usuario.rol == 2) {
                         window.location.href = "asesor.html";
+                    } else {
+                        window.location.href = "cajero.html";
                     }
                 }
             } else {

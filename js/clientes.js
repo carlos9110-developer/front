@@ -4,6 +4,7 @@ var cuentas;
 var usuario;
 var idCliente = 0;
 var idCuenta = 0;
+var cedulaCliente = 0;
 // función que se inicia al empezar el archivo
 function inicio() {
     usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -25,6 +26,7 @@ function listar() {
         "ajax": {
             "url": 'http://www.apirest.890m.com/api/traerClientes',
             "type": "GET",
+            "dataType": 'json',
             headers: {
                 "Authorization": usuario.token
             },
@@ -47,6 +49,11 @@ function listar() {
                         '<li>' +
                         '<button type="button"  onclick="ver_cuentas(' + oData.id + ')" style="width:100%" class="cursor btn btn-primary btn-sm">' +
                         '<span class="fas fa-credit-card"></span><b> Ver Cuentas </b>' +
+                        '</button>' +
+                        '</li>' +
+                        '<li>' +
+                        '<button type="button"  onclick="abrir_registrar_cuenta(' + oData.id + ',' + oData.cedula + ')" style="width:100%" class="cursor btn btn-success btn-sm">' +
+                        '<span class="fas fa-plus"></span><b> Registrar Cuenta </b>' +
                         '</button>' +
                         '</li>' +
                         '<ul/>' +
@@ -214,6 +221,7 @@ function ver_cuentas(id) {
             "url": 'http://www.apirest.890m.com/api/traerCuentasCliente',
             "type": "GET",
             "data": { "id_cliente": id },
+            "dataType": 'json',
             headers: {
                 "Authorization": usuario.token
             },
@@ -225,7 +233,7 @@ function ver_cuentas(id) {
                 data: "numero_cuenta",
                 "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
                     if (oData.estado == '1') {
-                        _$(nTd).html(oData.numero_cuenta + "<br/>" + '<button type="button"  onclick="abrir_desactivar_cuenta(' + oData.id + ')" class="cursor btn btn-danger btn-sm">' +
+                        $(nTd).html(oData.numero_cuenta + "<br/>" + '<button type="button"  onclick="abrir_desactivar_cuenta(' + oData.id + ')" class="cursor btn btn-danger btn-sm">' +
                             '<b>Desactivar Cuenta</b>' +
                             '</button>');
                     } else {
@@ -241,7 +249,14 @@ function ver_cuentas(id) {
                     $(nTd).html(oData.nombres + " " + oData.apellidos);
                 }
             },
-            { data: "saldo" },
+            {
+                data: "saldo",
+                "fnCreatedCell": function(nTd, sData, oData, iRow, iCol) {
+                    num = oData.saldo.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g, '$1.');
+                    num = num.split('').reverse().join('').replace(/^[\.]/, '');
+                    $(nTd).html("$ " + num);
+                }
+            },
             { data: "clave" },
             {
                 data: "estado",
@@ -286,5 +301,104 @@ function cerrar_modal_activar_cuenta() {
 }
 
 function activar_cuenta() {
+    $.ajax({
+        url: "http://www.apirest.890m.com/api/activarCuenta",
+        type: "PUT",
+        data: { "id": idCuenta },
+        dataType: 'json',
+        headers: { "Authorization": usuario.token },
+        beforeSend: function() {
+            Funciones.abrirModalCargando();
+        },
+        success: function(datos) {
+            if (datos.success == true) {
+                alertify.notify(datos.msg, 'success', 8);
+                cerrar_modal_activar_cuenta();
+                tbl_cuentas.ajax.reload();
+            } else {
+                alertify.notify(datos.msg, 'error', 8);
+            }
+            Funciones.cerrarModalCargando();
+        },
+        error: function() {
+            alertify.notify('Error, se presento un problema en el servidor por favor intentelo de nuevo', 'error', 8);
+            Funciones.cerrarModalCargando();
+        }
+    });
+}
 
+function abrir_desactivar_cuenta(id) {
+    idCuenta = id;
+    $("#modal_desactivar_cuenta").modal('show');
+}
+
+function cerrar_modal_desactivar_cuenta() {
+    $("#modal_desactivar_cuenta").modal('hide');
+}
+
+function desactivar_cuenta() {
+    $.ajax({
+        url: "http://www.apirest.890m.com/api/desactivarCuenta",
+        type: "PUT",
+        data: { "id": idCuenta },
+        dataType: 'json',
+        headers: { "Authorization": usuario.token },
+        beforeSend: function() {
+            Funciones.abrirModalCargando();
+        },
+        success: function(datos) {
+            if (datos.success == true) {
+                alertify.notify(datos.msg, 'success', 8);
+                cerrar_modal_desactivar_cuenta();
+                tbl_cuentas.ajax.reload();
+            } else {
+                alertify.notify(datos.msg, 'error', 8);
+            }
+            Funciones.cerrarModalCargando();
+        },
+        error: function() {
+            alertify.notify('Error, se presento un problema en el servidor por favor intentelo de nuevo', 'error', 8);
+            Funciones.cerrarModalCargando();
+        }
+    });
+}
+
+function abrir_registrar_cuenta(id, cedula) {
+    idCliente = id;
+    cedulaCliente = cedula;
+    $("#modal_registro_cuenta").modal("show");
+}
+
+function cerrar_modal_registro_cuenta() {
+    $("#modal_registro_cuenta").modal('hide');
+}
+
+function registro_cuenta() {
+    $.ajax({
+        url: "http://www.apirest.890m.com/api/registroCuenta",
+        type: "POST",
+        data: { "id_cliente": idCliente, "cedula": cedulaCliente },
+        dataType: 'json',
+        headers: { "Authorization": usuario.token },
+        beforeSend: function() {
+            Funciones.abrirModalCargando();
+        },
+        success: function(datos) {
+            if (datos.success == true) {
+                alertify.notify(datos.msg, 'success', 8);
+                cerrar_modal_registro_cuenta();
+            } else {
+                alertify.notify(datos.msg, 'error', 8);
+            }
+            Funciones.cerrarModalCargando();
+        },
+        error: function() {
+            alertify.notify('Error, se presento un problema en el servidor por favor intentelo de nuevo', 'error', 8);
+            Funciones.cerrarModalCargando();
+        }
+    });
+}
+
+function salir() {
+    Funciones.salir();
 }

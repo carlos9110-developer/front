@@ -5,7 +5,8 @@
 }
 
 #div-form-clientes,
-#div-listado-cuentas {
+#div-listado-cuentas,
+#div-listado-transacciones {
     display: none;
 }
 

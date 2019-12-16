@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Dashboard</title>
+    <title>Inicio Cajero</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
     <link rel="stylesheet" href="css/fontello.css">
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
 </head>
 
 <body>
@@ -16,14 +17,12 @@
         <div class="row">
             <div class="barra-lateral col-12 col-sm-auto">
                 <div class="logo">
-                    <h2>Dashboard</h2>
+                    <h2>Menú</h2>
                 </div>
                 <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
-                    <a href="#"><i class="icon-home"></i><span>Inicio</span></a>
-                    <a href="#"><i class="icon-doc-text"></i><span>Entradas</span></a>
-                    <a href="#"><i class="icon-users"></i><span>Usuarios</span></a>
-                    <a href="#"><i class="icon-cog-alt"></i><span>Configuracion</span></a>
-                    <a href="#"><i class="icon-logout"></i><span>Salir</span></a>
+                    <a href="asesor.html"><i class="icon-home"></i><span>Inicio</span></a>
+                    <a href="cuentas.html"><i class="fas fa-credit-card"></i><span>Cuentas</span></a>
+                    <a class="cursor" onclick="salir()"><i class="icon-logout"></i><span>Salir</span></a>
                 </nav>
             </div>
 
@@ -31,20 +30,30 @@
                 <div class="row">
                     <div class="col-12">
                         <nav class="breadcrumb mt-3">
-                            <a href="#" class="breadcrumb-item">Inicio</a>
-                            <a href="#" class="breadcrumb-item">Productos</a>
-                            <a href="#" class="breadcrumb-item">Tablets</a>
-                            <span class="breadcrumb-item active">iPad</span>
+                            <i class="icon-home"></i> <span class="breadcrumb-item active">Inicio</span>
                         </nav>
                     </div>
                 </div>
-            </main>
 
+                <div class="row">
+                    <div class="col-12 div-bienvenido">
+                        <h2 class="text-info text-center texto-bienvenida"></h2>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/funciones.js"></script>
+    <script>
+        Funciones.bienvenido();
+
+        function salir() {
+            Funciones.salir();
+        }
+    </script>
 </body>
 
 </html>
