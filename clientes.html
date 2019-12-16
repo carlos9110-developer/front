@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Clientes</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="css/fontello.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="barra-lateral col-12 col-sm-auto">
+                <div class="logo">
+                    <h2>Menú</h2>
+                </div>
+                <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
+                    <a href="asesor.html"><i class="icon-home"></i><span>Inicio</span></a>
+                    <a href="clientes.html"><i class="icon-users"></i><span>Clientes</span></a>
+                </nav>
+            </div>
+
+            <main class="main col">
+                <div class="row">
+                    <div class="col-12">
+                        <nav class="breadcrumb mt-3">
+                            <a class="breadcrumb-item" href="asesor.html"><i class="icon-home"></i> <span>Inicio</span></a>
+                            <span class="breadcrumb-item active"><i class="icon-users"></i> Clientes</span>
+                        </nav>
+                    </div>
+                </div>
+
+                <div id="div-listado-clientes" class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="icon-doc-text"></i> Listado Clientes
+                            </div>
+
+                            <div class="card-body">
+                                <button onclick="abrirForm()" type="button" class="btn btn-info btn-abrir-registrar-cliente"><i class="fas fa-plus"></i> Registrar Cliente</button>
+                                <div class="table-responsive">
+                                    <table id="tbl_clientes" style="font-size: 12px; width: 100%" class="display responsive  nowrap table table-striped table-bordered table-condensed table-hover">
+                                        <thead>
+                                            <tr class="active">
+                                                <th>ID</th>
+                                                <th>Cédula</th>
+                                                <th>Nombre</th>
+                                                <th>Apellidos</th>
+                                                <th>Dirección</th>
+                                                <th>Teléfono</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="div-form-clientes" class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header" id="div-titulo-form">
+                            </div>
+                            <div class="card-body">
+                                <form method="post" id="form-cliente" name="form-cliente">
+                                    <div class="form-group row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                            <label for="cedula">Cédula</label>
+                                            <input pattern="[0-9]+" type="text" class="form-control" placeholder="Cédula" name="cedula" id="cedula">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-3">
+                                            <label for="nombre">Nombre</label>
+                                            <input pattern="[A-Za-z]{3-50}" type="text" class="form-control" placeholder="Nombre" name="nombre" id="nombre">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-3">
+                                            <label for="apellidos">Apellidos</label>
+                                            <input pattern="[A-Za-z]{3-50}" type="text" class="form-control" placeholder="Apellidos" name="apellidos" id="apellidos">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-3">
+                                            <label for="direccion">Dirección</label>
+                                            <input type="text" class="form-control" placeholder="Dirección" name="direccion" id="direccion">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-3">
+                                            <label for="telefono">Teléfono</label>
+                                            <input pattern="[0-9]+" type="text" class="form-control" placeholder="Teléfono" name="telefono" id="telefono">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-3">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-12 text-center">
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 col-sm-9 col-md-4" id="div-contiene-submit">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="div-listado-cuentas" class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-credit-card"></i> Listado Cuentas
+                            </div>
+                            <div class="card-body">
+                                <button onclick="cerrarCuentas()" type="button" class="btn btn-danger btn-abrir-registrar-cliente"><i class="fas fa-reply"></i></button>
+                                <div class="table-responsive">
+                                    <table id="tbl_cuentas" style="font-size: 12px; width: 100%" class="display responsive  nowrap table table-striped table-bordered table-condensed table-hover">
+                                        <thead>
+                                            <tr class="active">
+                                                <th>ID</th>
+                                                <th>Nombres</th>
+                                                <th>Número Cuenta</th>
+                                                <th>Cliente</th>
+                                                <th>Saldo</th>
+                                                <th>Clave</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="modal_activar_cuenta" class="modal fade" tabindex="-1" data-backdrop='static' data-keyboard='false' role="dialog">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header" style="margin-bottom: 35px;">
+                                <div class="modal-title">
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-center" style="font-size: 18px;">
+                                    Si esta seguro de activar la cuenta presione el botón <b>ACEPTAR</b>
+                                </p>
+                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12   text-center">
+                                    <button onclick="activar_cuenta()" data-toggle="tooltip" data-placement="top" data-html="true" class="btn btn-success btn-md" type="button"><b>ACEPTAR</b></button>
+                                    <button onclick="cerrar_modal_activar_cuenta()" data-toggle="tooltip" data-placement="top" data-html="true" class="btn btn-danger btn-md" type="button"><b>CANCELAR</b></button>
+                                </div>
+                                <p>&nbsp;</p>
+                            </div>
+                            <!-- final div que contiene la clase modal-body -->
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="js/responsiveTable.js"></script>
+    <script src="js/funciones.js"></script>
+    <script src="js/clientes.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+</body>
+
+</html>
